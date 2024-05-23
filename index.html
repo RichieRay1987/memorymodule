@@ -1,1 +1,64 @@
-<p>test</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Terminal</title>
+    <style>
+        .terminal {
+            background-color: black;
+            color: green;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px;
+            width: 600px;
+            height: 300px;
+            overflow-y: auto;
+            margin: 20px auto;
+        }
+        .input-line {
+            display: flex;
+        }
+        .prompt {
+            margin-right: 5px;
+        }
+        .input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: green;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal" id="terminal">
+        <div class="input-line">
+            <span class="prompt">C:\></span>
+            <input type="text" class="input" id="terminalInput">
+        </div>
+    </div>
+    <script>
+        const terminal = document.getElementById('terminal');
+        const terminalInput = document.getElementById('terminalInput');
+
+        terminalInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const inputText = terminalInput.value;
+                terminal.innerHTML += `<div><span class="prompt">C:\></span> ${inputText}</div>`;
+                terminalInput.value = '';
+
+                if (inputText.toLowerCase() === 'help') {
+                    terminal.innerHTML += '<div>Available commands: help, about, contact</div>';
+                } else if (inputText.toLowerCase() === 'about') {
+                    terminal.innerHTML += '<div>Memory Module: Glitch artist and photographer.</div>';
+                } else if (inputText.toLowerCase() === 'contact') {
+                    terminal.innerHTML += '<div>Contact: memorymodule@example.com</div>';
+                } else {
+                    terminal.innerHTML += '<div>Unknown command. Type "help" for a list of commands.</div>';
+                }
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
